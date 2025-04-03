@@ -1,4 +1,4 @@
-# **Why Do We Need Kubernetes If We Have Docker?**  
+# **1. Why Do We Need Kubernetes If We Have Docker?**  
 
 ## **Introduction**  
 Docker is a powerful tool for containerization, allowing developers to package applications along with dependencies into lightweight, portable containers. However, as applications grow in complexity and scale, managing multiple containers manually becomes challenging. Kubernetes acts as a container orchestration tool that automates deployment, scaling, networking, and management of containerized applications.
@@ -70,7 +70,7 @@ If a server running Docker containers crashes, all services go down. In Kubernet
 
 ---
 
-## **Kubernetes Basic Architecture**  
+# **2.Kubernetes Basic Architecture**  
 Kubernetes follows a **Master-Worker** architecture where the **Control Plane (Master Node)** manages multiple **Worker Nodes** that run containerized applications.
 
 ---
