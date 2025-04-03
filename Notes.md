@@ -202,3 +202,96 @@ Worker Nodes run containerized applications and handle traffic.
 
 ## **Conclusion**  
 Kubernetes enhances Docker by automating container management, ensuring high availability, self-healing, auto-scaling, and rolling updates. Its **Control Plane + Worker Node** architecture makes it the ideal solution for managing large-scale, containerized applications efficiently. 🚀
+
+## **Difference Between Container and Pod in Kubernetes**  
+
+| Feature            | Container 🐳 | Pod 📦 |
+|--------------------|-------------|--------|
+| **Definition**     | A lightweight, standalone executable package that includes an application and its dependencies. | The smallest deployable unit in Kubernetes that can contain one or more containers. |
+| **Managed By**     | Docker, containerd, CRI-O, etc. | Kubernetes (via the Control Plane). |
+| **Number of Containers** | A single container runs one application process. | A pod can run **one or multiple** containers that share storage and network. |
+| **Networking**     | Each container has its own network stack (IP, ports). | All containers in a Pod **share the same network namespace** (same IP, ports). |
+| **Storage**        | Each container has its own filesystem. | Pods can share **Persistent Volumes (PVs)** between containers. |
+| **Rescheduling**   | If a container crashes, it needs manual restart unless managed by Kubernetes. | If a Pod crashes, Kubernetes automatically restarts or replaces it. |
+| **Lifecycle**      | A container is a single running process. | A Pod manages the lifecycle of its containers. |
+| **Example Use Case** | Running a simple microservice (e.g., Nginx, Redis). | Running a **multi-container app** (e.g., a web app with Nginx and a logging sidecar). |
+
+---
+
+### **Simple Example**  
+- **Container Alone:** Runs an **Nginx** server.  
+- **Pod:** Runs **Nginx + Fluentd (logging sidecar)** together in one unit.  
+
+Thus, **Pods are an abstraction over containers** that allow Kubernetes to manage them more efficiently. 🚀
+
+### **Kube-Proxy in Kubernetes**  
+
+**Kube-Proxy** is a network component in Kubernetes that manages communication between Pods and external services. It ensures that network rules are correctly applied so that Pods can communicate with each other and with the outside world.  
+
+---
+
+## **1. Key Functions of Kube-Proxy**  
+
+1. **Maintains Network Rules**  
+   - Sets up rules to allow communication between different Pods inside the cluster.  
+   - Ensures network connectivity using **iptables, IPVS, or userspace proxies**.  
+
+2. **Handles Service Discovery**  
+   - Routes traffic to the correct Pod when a Service is accessed.  
+   - Distributes traffic among multiple Pods for **load balancing**.  
+
+3. **Manages External Access**  
+   - Allows Pods to **receive traffic from external users** when exposed via a Service.  
+   - Works with **NodePort, ClusterIP, and LoadBalancer Services**.  
+
+---
+
+## **2. How Kube-Proxy Works?**  
+
+1. A **user** or another Pod makes a request to a Kubernetes **Service**.  
+2. The Service has multiple **Pods running behind it** (e.g., replicas of a web server).  
+3. Kube-Proxy intercepts the request and **forwards traffic to one of the available Pods**.  
+4. If a Pod fails, Kube-Proxy automatically **reroutes traffic** to healthy Pods.  
+
+---
+
+## **3. Types of Kube-Proxy Implementations**  
+
+| Mode      | Description |
+|-----------|------------|
+| **Userspace Mode** | Legacy method, routes traffic through a user-space proxy. Slow and inefficient. |
+| **iptables Mode** | Default method in modern Kubernetes. Uses `iptables` rules for fast packet forwarding. |
+| **IPVS Mode** | Uses IP Virtual Server (IPVS) for **better performance** and **efficient load balancing**. |
+
+---
+
+## **4. Example: Kube-Proxy in Action**  
+
+### **Scenario: Exposing a Web App via a Service**  
+- Suppose you deploy a web application with **3 replicas** and expose it using a **Service**.  
+- When a user accesses `http://webapp-service`, Kube-Proxy **routes the request** to one of the running Pods.  
+
+```
+User Request --> Kube-Proxy --> Service --> Pod 1 / Pod 2 / Pod 3
+```
+
+If **Pod 1 fails**, Kube-Proxy will automatically **redirect traffic to Pod 2 or Pod 3**, ensuring high availability.  
+
+---
+
+## **5. Summary of Kube-Proxy**  
+
+| Feature           | Description |
+|------------------|-------------|
+| **Purpose**      | Manages networking and routing inside a Kubernetes cluster. |
+| **Key Role**     | Forwards traffic between Services and Pods. |
+| **Implements**   | Uses `iptables`, `IPVS`, or userspace methods. |
+| **Handles**      | Load balancing, network rules, and external access. |
+| **Failure Handling** | Automatically redirects traffic if a Pod fails. |
+
+### ✅ **Why is Kube-Proxy Important?**  
+- Enables **service discovery** and **load balancing**.  
+- Ensures Pods can **communicate with each other** seamlessly.  
+- Helps expose applications to **external users** securely.  
+
+Thus, **Kube-Proxy is a critical component** for managing networking inside Kubernetes clusters! 🚀
