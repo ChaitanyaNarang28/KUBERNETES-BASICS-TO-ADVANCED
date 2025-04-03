@@ -200,44 +200,5 @@ Worker Nodes run containerized applications and handle traffic.
 
 ---
 
-### **5. Example: Running a Web App in Kubernetes**  
-
-#### **Without Kubernetes (Docker Only):**  
-```sh
-docker run -d -p 80:80 mywebapp
-```
-➡️ Requires manual intervention if the container crashes.  
-
-#### **With Kubernetes:**  
-
-1️⃣ Define a **Deployment YAML File:**  
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: web-app
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: web
-  template:
-    metadata:
-      labels:
-        app: web
-    spec:
-      containers:
-      - name: web
-        image: mywebapp
-```
-
-2️⃣ **Deploy Using Kubernetes:**  
-```sh
-kubectl apply -f webapp.yaml
-```
-✅ Kubernetes automatically handles scaling, self-healing, and networking.
-
----
-
 ## **Conclusion**  
 Kubernetes enhances Docker by automating container management, ensuring high availability, self-healing, auto-scaling, and rolling updates. Its **Control Plane + Worker Node** architecture makes it the ideal solution for managing large-scale, containerized applications efficiently. 🚀
