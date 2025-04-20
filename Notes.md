@@ -158,32 +158,7 @@ Worker Nodes run containerized applications and handle traffic.
 ### **3. Kubernetes Architecture Diagram**
 
 ```
-               [User]
-                 │
-                 ▼
-      ----------------------------------
-      |        Control Plane          |
-      ----------------------------------
-      |  API Server  |  etcd           |
-      |  Scheduler   |  Controller Mgr |
-      ----------------------------------
-                 │
-  -----------------------------------------
-  |         Worker Node 1                  |
-  -----------------------------------------
-  | Kubelet  |  Kube-Proxy  | Container Runtime |
-  -----------------------------------------
-  | Pod 1    |  Pod 2       |  Pod 3           |
-  -----------------------------------------
-
-  -----------------------------------------
-  |         Worker Node 2                  |
-  -----------------------------------------
-  | Kubelet  |  Kube-Proxy  | Container Runtime |
-  -----------------------------------------
-  | Pod 4    |  Pod 5       |  Pod 6           |
-  -----------------------------------------
-```
+    ![alt text](image.png)
 
 ---
 
