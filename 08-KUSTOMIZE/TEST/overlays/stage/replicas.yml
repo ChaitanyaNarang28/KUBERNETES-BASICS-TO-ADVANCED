@@ -1,0 +1,3 @@
+- op: replace
+  path: /spec/repliacas
+  value: 5
