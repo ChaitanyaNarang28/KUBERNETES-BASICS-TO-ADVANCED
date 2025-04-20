@@ -158,7 +158,8 @@ Worker Nodes run containerized applications and handle traffic.
 ### **3. Kubernetes Architecture Diagram**
 
 ```
-   ![Alt text](https://kubernetes.io/images/docs/kubernetes-cluster-architecture.svg)
+![image Alt](https://kubernetes.io/images/docs/kubernetes-cluster-architecture.svg)
+```
 
 ---
 
